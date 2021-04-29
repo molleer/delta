@@ -1,14 +1,6 @@
-# LDAP Sync
+# Delta
 
-[![Build Status](https://travis-ci.com/molleer/ldap-sync.svg?branch=master)](https://travis-ci.com/molleer/ldap-sync)
-
-Syncing legacy [LDAP](https://ldap.com/) user database with the newer user service [Gamma](https://gamma.chalmers.it)
-
-## Why?
-
-The [IT student division](https://chalmers.it/) at Chalmers University of Technology previously used the user service [Beta Account](https://github.com/cthit/chalmersit-account-rails) which was written in [Ruby on Rails](https://rubyonrails.org/) and used LDAP as a user database. This service has been replaced by Gamma which is written in [Spring Boot](https://spring.io/projects/spring-boot) and [ReactJs](https://reactjs.org/) and uses a [PostgreSQL](https://www.postgresql.org/) database. However, there are still several services which is relying directly on LDAP to work which means the data in both Gamma and the LDAP database must be synced.
-
-<!--## How?-->
+Yes, another account management service. But this one is small...hopefully. The only purpose of this application is for IT student being able to change their password in LDAP by logging in with Gamma.
 
 ## Development
 
@@ -28,6 +20,7 @@ Admin access LDAP:
 - Password: `password`
 
 ### Gamma
+
 Run Gamma locally with the following command
 
 ```
@@ -46,10 +39,12 @@ Admin access Gamma:
 You may access the production LDAP server of the Chalmers IT student division [here](https://kamino.chalmers.it/phpldapadmin/).
 
 User access:
+
 - Login DN: `uid=[your cid],ou=people,dc=chalmers,dc=it`
 - Password: Your password
 
 Admin access:
+
 - Login DN: `cn=admin,dc=chalmers,dc=it`
 - Password: [found here](https://youtu.be/dQw4w9WgXcQ)
 
