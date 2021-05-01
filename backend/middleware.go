@@ -11,7 +11,7 @@ var GAMMA_REDIRECT_URL = os.Getenv("GAMMA_REDIRECT_URL")
 
 func AuthRequired() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		token, err := c.Cookie("token")
+		token, err := c.Cookie("delta")
 		log.Println(token)
 		if err != nil || !TokenIsValid(token) {
 			c.String(401, GetLoginURL())

@@ -5,10 +5,12 @@ import {
     makeStyles,
     Typography
 } from "@material-ui/core";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ReactPasswordStrength from "react-password-strength";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import CancelIcon from "@material-ui/icons/Cancel";
+import Axios from "axios";
+import UserContext from "./UserContext";
 
 const useStyles = makeStyles({
     root: {
@@ -59,6 +61,7 @@ const PasswordField = ({ className, placeholder, onChange }) => (
 );
 
 const NewPassword = () => {
+    const [user, setUser] = useContext(UserContext);
     const classes = useStyles();
     const [password, setPassword] = useState({ isValid: false, password: "" });
     const [passwordAgain, setPasswordAgain] = useState({
@@ -107,6 +110,16 @@ const NewPassword = () => {
             );
         }
     }, [password, passwordAgain, classes.matchIcon]);
+
+    useEffect(() => {
+        if (!user.logged_in) {
+            Axios.get("/api/admin/checkLogin")
+                .then(() => {
+                    setUser({ logged_in: true, name: "" });
+                })
+                .catch(err => (window.location.href = err.response.data));
+        }
+    }, [user, setUser]);
 
     return (
         <div className={classes.root}>

@@ -26,5 +26,5 @@ func HandleExchangeCode(c *gin.Context) {
 		c.AbortWithError(http.StatusUnauthorized, err)
 		return
 	}
-	c.SetCookie("token", token.AccessToken, 600, "/", cookie_domain,true,true )
+	c.SetCookie("delta", token.AccessToken, 600, "/", cookie_domain,true,true )
 }
