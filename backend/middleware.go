@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -8,16 +9,12 @@ import (
 
 var GAMMA_REDIRECT_URL = os.Getenv("GAMMA_REDIRECT_URL")
 
-func TokenIsValid(token string) bool{
-	//TODO: Send request to Gamma and check token
-	return token != ""
-}
-
 func AuthRequired() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		token, err := c.Cookie("token")
+		log.Println(token)
 		if err != nil || !TokenIsValid(token) {
-			c.String(401, GAMMA_REDIRECT_URL)
+			c.String(401, GetLoginURL())
 			c.Abort()
 			return
 		}

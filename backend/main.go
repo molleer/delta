@@ -13,7 +13,9 @@ func main() {
 	authorized := r.Group("/api/admin")
 	authorized.Use(AuthRequired())
 
-	authorized.GET("/setPassword", HandleSetPassword)
+	authorized.POST("/setPassword", HandleSetPassword)
+
+	r.POST("/api/exchangeCode", HandleExchangeCode)
 
 	r.Run(fmt.Sprintf(":%s", os.Getenv("PORT")))
 }
