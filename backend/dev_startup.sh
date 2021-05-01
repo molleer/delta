@@ -2,7 +2,7 @@ export COOKIE_HOST=localhost
 export COOKIE_SECRET=secret
 
 export GAMMA_URL=http://localhost:8081
-export GAMMA_REDIRECT_URL=http://localhost:3001
+export GAMMA_REDIRECT_URL=http://localhost:3001/api/login
 export GAMMA_CLIENT_ID=id
 export GAMMA_CLIENT_KEY=key
 

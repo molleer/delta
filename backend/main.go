@@ -9,10 +9,11 @@ import (
 
 func main() {
 	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
+
+	authorized := r.Group("/api/admin")
+	authorized.Use(AuthRequired())
+
+	authorized.GET("/setPassword", HandleSetPassword)
+
 	r.Run(fmt.Sprintf(":%s", os.Getenv("PORT")))
 }
