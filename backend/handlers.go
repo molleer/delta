@@ -5,7 +5,9 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
+	"github.com/molleer/delta/services"
 )
 
 var cookie_domain = os.Getenv("COOKIE_DOMAIN")
@@ -21,10 +23,12 @@ func HandleExchangeCode(c *gin.Context) {
 	if !ok {
 		c.AbortWithError(http.StatusBadRequest, errors.New("No grant code provided"))
 	}
-	token, err := GetToken(grant)
+	token, err := services.GetToken(grant)
 	if err != nil {
 		c.AbortWithError(http.StatusUnauthorized, err)
 		return
 	}
-	c.SetCookie("delta", token.AccessToken, 600, "/", cookie_domain,true,true )
+	session := sessions.Default(c)
+	session.Set("token", token.AccessToken)
+	session.Save()
 }

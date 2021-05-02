@@ -117,7 +117,14 @@ const NewPassword = () => {
                 .then(() => {
                     setUser({ logged_in: true, name: "" });
                 })
-                .catch(err => (window.location.href = err.response.data));
+                .catch(err => {
+                    if (
+                        err.response.data &&
+                        err.response.data.match(/^http/g)
+                    ) {
+                        window.location.href = err.response.data;
+                    }
+                });
         }
     }, [user, setUser]);
 

@@ -1,5 +1,7 @@
 export COOKIE_DOMAIN=localhost
-export COOKIE_SECRET=secret
+export SESSION_SECRET=secret
+export REDIS_HOST=localhost
+export REDIS_PASS=
 
 export GAMMA_URL=http://localhost:8081
 export GAMMA_REDIRECT_URL=http://localhost:8081
@@ -15,6 +17,6 @@ export LDAP_ADMIN_PASS=password
 export LDAP_USERS_DN=ou=people,dc=chalmers,dc=it
 
 export GIN_MODE=debug
-export PORT=8080
+export PORT=8090
 
 go run ./
