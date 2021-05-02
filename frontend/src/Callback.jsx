@@ -21,8 +21,8 @@ const Callback = () => {
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
         Axios.post(`/api/exchangeCode?grant=${params.get("code")}`)
-            .then(() => {
-                setUser({ logged_in: true, name: "" });
+            .then(res => {
+                setUser(res.data);
                 setRedirect(true);
             })
             .catch(err => console.log(err));

@@ -114,8 +114,8 @@ const NewPassword = () => {
     useEffect(() => {
         if (!user.logged_in) {
             Axios.get("/api/admin/checkLogin")
-                .then(() => {
-                    setUser({ logged_in: true, name: "" });
+                .then(res => {
+                    setUser(res.data);
                 })
                 .catch(err => {
                     if (
@@ -132,7 +132,7 @@ const NewPassword = () => {
         <div className={classes.root}>
             <Card className={classes.card}>
                 <CardContent>
-                    <Typography variant="h5">Hi ITStud!</Typography>
+                    <Typography variant="h5">Hi {user.name}!</Typography>
                     <Typography variant="h6">
                         Enter your new password
                     </Typography>
