@@ -67,7 +67,7 @@ ou: SUDOers
 
 # Entry 4: cn=digit,ou=SUDOers,dc=chalmers,dc=it
 # dn: cn=digit,ou=SUDOers,dc=chalmers,dc=it
-changetype: add
+# changetype: add
 # cn: digit
 # description: Grant digIT sudo-powers
 # objectclass: sudoRole
@@ -138,24 +138,24 @@ objectclass: posixGroup
 objectclass: top
 
 # Users ---------------------------------
-dn: uid=bill,ou=people,dc=chalmers,dc=it
+dn: uid=svanni,ou=people,dc=chalmers,dc=it
 changetype: add
 accepteduseragreement: TRUE
-admissionyear: 2001
+admissionyear: 2016
 cn: %{firstname} '%{nickname}' %{lastname}
 gidnumber: 4500
-givenname: Bill
-homedirectory: /home/chalmersit/bill
+givenname: Sorcha
+homedirectory: /home/chalmersit/svanni
 loginshell: /bin/bash
-mail: bill@student.chalmers.se
-nickname: Billy
+mail: svanni@student.chalmers.se
+nickname: Våffla
 objectclass: chalmersstudent
 objectclass: posixAccount
 objectclass: top
 preferredlanguage: sv
-sn: Billysson
+sn: Vanni
 telephonenumber: 07212345667
-uid: bill
+uid: svanni
 uidnumber: 10000
 userpassword: {SSHA}xeHcFuIwJ8R2JffkdS1YEgPUHzN67kvx
 
@@ -170,10 +170,10 @@ displayname: digIT 01/02
 function: digIT stuff
 # gidnumber: 5116
 mail: digit01@chalmers.it
-member: uid=bill,ou=people,dc=chalmers,dc=it
+member: uid=svanni,ou=people,dc=chalmers,dc=it
 objectclass: groupOfNames
 # objectclass: posixGroup
 objectclass: itGroup
 objectclass: top
-position: Hubbenansvarig;billy
+position: Hubbenansvarig;svanni
 type: commitee

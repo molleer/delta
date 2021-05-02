@@ -44,6 +44,7 @@ const useStyles = makeStyles({
 });
 
 const scoreWords = ["weak", "okay", "good", "strong", "stronger"];
+const passDefault = { isValid: false, password: "" };
 
 const PasswordField = ({ className, placeholder, onChange }) => (
     <ReactPasswordStrength
@@ -63,11 +64,8 @@ const PasswordField = ({ className, placeholder, onChange }) => (
 const NewPassword = () => {
     const [user, setUser] = useContext(UserContext);
     const classes = useStyles();
-    const [password, setPassword] = useState({ isValid: false, password: "" });
-    const [passwordAgain, setPasswordAgain] = useState({
-        isValid: false,
-        password: ""
-    });
+    const [password, setPassword] = useState(passDefault);
+    const [passwordAgain, setPasswordAgain] = useState(passDefault);
     const [error, setError] = useState();
     const [matchingIcon, setMatchingIcon] = useState(null);
 
@@ -85,8 +83,18 @@ const NewPassword = () => {
             return;
         }
         setError("");
-        //TODO: Send request to backend
-        console.log(password.password);
+
+        Axios.post("/api/admin/setPassword", {
+            password: password.password
+        })
+            .then(res => {
+                console.log("Success!");
+                setPassword(passDefault);
+                setPasswordAgain(passDefault);
+            })
+            .catch(err => {
+                setError(err.response.data);
+            });
     };
 
     useEffect(() => {

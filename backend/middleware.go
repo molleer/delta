@@ -34,6 +34,11 @@ func RedisSession() gin.HandlerFunc {
 		os.Getenv("REDIS_PASS"),
 		[]byte(os.Getenv("SESSION_SECRET")))
 
+	if err != nil {
+		fmt.Println("Failed to connect to redis")
+		panic(err)
+	}
+
 	store.Options(sessions.Options{
 		Path: "/",
 		Domain: COOKIE_DOMAIN,
@@ -42,11 +47,6 @@ func RedisSession() gin.HandlerFunc {
 		HttpOnly: true,
 		SameSite: http.SameSiteStrictMode,
 	})
-
-	if err != nil {
-		fmt.Println("Failed to connect to redis")
-		panic(err)
-	}
 	
 	return sessions.Sessions("delta", store)
 }
