@@ -2,6 +2,8 @@
 
 Yes, another account management service. But this one is small...hopefully. The only purpose of this application is for IT student being able to change their password in LDAP by logging in with Gamma.
 
+![demo](https://raw.githubusercontent.com/molleer/delta/main/demo_image.jpg)
+
 ## Development
 
 Start local version of gamma, LDAP mock and redis with the following command
