@@ -106,3 +106,9 @@ func HandleCheckLogin(c *gin.Context) {
 		"cid": session.Get("cid"),
 	})
 }
+
+func HandleLogout(c *gin.Context) {
+	session := sessions.Default(c)
+	session.Clear()
+	session.Save()
+}

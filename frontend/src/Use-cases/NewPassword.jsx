@@ -10,7 +10,8 @@ import ReactPasswordStrength from "react-password-strength";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import CancelIcon from "@material-ui/icons/Cancel";
 import Axios from "axios";
-import UserContext from "./UserContext";
+import UserContext from "../UserContext";
+import { Redirect } from "react-router";
 
 const useStyles = makeStyles({
     root: {
@@ -46,7 +47,7 @@ const useStyles = makeStyles({
 const scoreWords = ["weak", "okay", "good", "strong", "stronger"];
 const passDefault = { isValid: false, password: "" };
 
-const PasswordField = ({ className, placeholder, onChange }) => (
+const PasswordField = ({ className, placeholder, onChange, logged_in }) => (
     <ReactPasswordStrength
         className={className}
         minLength={5}
@@ -55,7 +56,8 @@ const PasswordField = ({ className, placeholder, onChange }) => (
         inputProps={{
             name: "password_input",
             autoComplete: "off",
-            placeholder: placeholder
+            placeholder: placeholder,
+            disabled: !logged_in
         }}
         changeCallback={onChange}
     />
@@ -68,6 +70,7 @@ const NewPassword = () => {
     const [passwordAgain, setPasswordAgain] = useState(passDefault);
     const [error, setError] = useState();
     const [matchingIcon, setMatchingIcon] = useState(null);
+    const [success, setSuccess] = useState(false);
 
     const handleSubmit = () => {
         if (!password.password) {
@@ -87,10 +90,10 @@ const NewPassword = () => {
         Axios.post("/api/admin/setPassword", {
             password: password.password
         })
-            .then(res => {
-                console.log("Success!");
-                setPassword(passDefault);
-                setPasswordAgain(passDefault);
+            .then(async () => {
+                await Axios.post("/api/logout");
+                setSuccess(true);
+                setUser({ logged_in: false, name: "" });
             })
             .catch(err => {
                 setError(err.response.data);
@@ -138,6 +141,7 @@ const NewPassword = () => {
 
     return (
         <div className={classes.root}>
+            {success ? <Redirect to="/success" /> : null}
             <Card className={classes.card}>
                 <CardContent>
                     <Typography variant="h5">Hi {user.name}!</Typography>
@@ -148,12 +152,14 @@ const NewPassword = () => {
                         className={classes.inputField}
                         placeholder={"New password"}
                         onChange={e => setPassword(e)}
+                        logged_in={user.logged_in}
                     />
                     <div className={classes.again}>
                         <PasswordField
                             className={classes.inputFieldAgain}
                             placeholder={"New password again"}
                             onChange={e => setPasswordAgain(e)}
+                            logged_in={user.logged_in}
                         />
                         {matchingIcon}
                     </div>

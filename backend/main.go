@@ -17,6 +17,7 @@ func main() {
 	authorized.POST("/setPassword", HandleSetPassword)
 	authorized.GET("/checkLogin", HandleCheckLogin)
 
+	r.POST("/api/logout", HandleLogout)
 	r.POST("/api/exchangeCode", HandleExchangeCode)
 
 	r.Run(fmt.Sprintf(":%s", os.Getenv("PORT")))

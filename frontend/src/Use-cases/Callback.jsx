@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { CircularProgress, makeStyles } from "@material-ui/core";
 import { Redirect } from "react-router";
 import Axios from "axios";
-import UserContext from "./UserContext";
+import UserContext from "../UserContext";
 
 const useStyle = makeStyles({
     center: {
@@ -30,7 +30,11 @@ const Callback = () => {
 
     return (
         <div className={classes.center}>
-            {redirect ? <Redirect to="/" /> : <CircularProgress size="5rem" />}
+            {redirect ? (
+                <Redirect to="/new_password" />
+            ) : (
+                <CircularProgress size="5rem" />
+            )}
         </div>
     );
 };
